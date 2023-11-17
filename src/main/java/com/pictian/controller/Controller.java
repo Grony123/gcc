@@ -2,7 +2,9 @@ package com.pictian.controller;
 
 import com.pictian.models.Answer;
 import com.pictian.models.Input;
+import com.pictian.models.InputML;
 import com.pictian.services.Fileorganize;
+import com.pictian.services.Mmlprogram;
 import com.pictian.services.Profitmax;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ public class Controller {
     Profitmax profitmax;
     @Autowired
     Fileorganize fileorganize;
+    @Autowired
+    Mmlprogram mmlprogram;
 
     @RequestMapping("/")
     public String hello(){
@@ -34,5 +38,12 @@ public class Controller {
     public @ResponseBody Answer file(@RequestBody Input input){
         String[] inputArray = input.getInputs();
         return fileorganize.fileReorganization(inputArray);
+    }
+
+    @PostMapping("/mlmm-program")
+    public @ResponseBody Answer mlmm(@RequestBody InputML inputMl){
+        List<String[]> inputArray = inputMl.getInputs();
+        System.out.println(inputArray.get(0)[0]);
+        return mmlprogram.mmlProgram(inputArray);
     }
 }
