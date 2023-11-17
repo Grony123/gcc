@@ -2,6 +2,7 @@ package com.pictian.controller;
 
 import com.pictian.models.Answer;
 import com.pictian.models.Input;
+import com.pictian.services.Fileorganize;
 import com.pictian.services.Profitmax;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ import static java.lang.Math.max;
 public class Controller {
     @Autowired
     Profitmax profitmax;
+    @Autowired
+    Fileorganize fileorganize;
+
     @RequestMapping("/")
     public String hello(){
       return "hello !";
@@ -26,4 +30,9 @@ public class Controller {
         return profitmax.profitMaximization(inputArray);
     }
 
+    @PostMapping("/file-reorganization")
+    public @ResponseBody Answer file(@RequestBody Input input){
+        String[] inputArray = input.getInputs();
+        return fileorganize.fileReorganization(inputArray);
+    }
 }
