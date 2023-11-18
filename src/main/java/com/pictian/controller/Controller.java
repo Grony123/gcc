@@ -5,6 +5,7 @@ import com.pictian.models.Input;
 import com.pictian.models.InputML;
 import com.pictian.services.Fileorganize;
 import com.pictian.services.Mmlprogram;
+import com.pictian.services.PortfolioOpt;
 import com.pictian.services.Profitmax;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ public class Controller {
     Fileorganize fileorganize;
     @Autowired
     Mmlprogram mmlprogram;
+    @Autowired
+    PortfolioOpt portfolioOpt;
 
     @RequestMapping("/")
     public String hello(){
@@ -43,7 +46,13 @@ public class Controller {
     @PostMapping("/mlmm-program")
     public @ResponseBody Answer mlmm(@RequestBody InputML inputMl){
         List<String[]> inputArray = inputMl.getInputs();
-        System.out.println(inputArray.get(0)[0]);
         return mmlprogram.mmlProgram(inputArray);
+    }
+
+    @PostMapping("/portfolio-operations")
+    public @ResponseBody Answer portfolio(@RequestBody InputML inputMl){
+        List<String[]> inputArray = inputMl.getInputs();
+        System.out.println(inputArray.get(0)[0]);
+        return portfolioOpt.portfolioOperation(inputArray);
     }
 }
